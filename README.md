@@ -6,19 +6,17 @@ wallpaper** drawn on a canvas behind the interface.
 
 ## Features
 
-- **Dark mode — koi pond:** teal water, lily pads, three drifting carp, ripples,
-  fireflies.
-- **Light mode — honu lagoon:** turquoise lagoon, a sea turtle, reef fish,
-  weeds, bubbles.
-- **Moonlit** as an alternate scene: navy sky, a gold crescent, drifting clouds,
-  meteors.
-- A **Pixel theme** page in the left sidebar switches between
-  Auto / Koi pond / Honu lagoon / Moonlit, or turns the skin off without
-  disabling the plugin. The choice is stored in `localStorage`.
-- Follows the built-in Appearance light/dark preference in Auto mode.
+- **12 live ASCII wallpapers:** Auto, Koi pond, Honu lagoon, Moonlit, Cloud
+  drift, Fireflies, Jellyfish, Lantern night, Neon rain, Sakura dusk, Snow
+  cabin, Star voyage, and Clawd.
+- **Light / dark / system** from the same page (writes the built-in Appearance
+  preference) plus **Auto** wallpaper that follows it.
+- A **Pixel theme** page in the left sidebar switches scenes, sets the mode, or
+  turns the skin off without disabling the plugin. The choice is stored in
+  `localStorage`.
 - Respects `prefers-reduced-motion` (draws a still frame).
-- MIT. The ASCII scene engine and the koi-pond / honu-lagoon scenes are adapted
-  from [ai-chat-themes](https://github.com/Aohkne/ai-chat-themes); see
+- MIT. The ASCII scene engine and the wallpapers are adapted from
+  [ai-chat-themes](https://github.com/Aohkne/ai-chat-themes); see
   [NOTICE.md](NOTICE.md).
 
 ## Install

@@ -1,6 +1,6 @@
 {
   "meta": {
     "title": "Text Mode Pixel Theme",
-    "description": "Restyles the Harness as a text-mode pixel-art terminal: phosphor and paper palettes, monospace type, square tiles, pixel scrollbars, and a live ASCII wallpaper that drifts behind the UI — a koi pond in dark mode, a honu lagoon in light mode. The Pixel theme page in the sidebar switches scenes or turns the skin off."
+    "description": "Restyles the Harness as a text-mode pixel-art terminal: phosphor and paper palettes, monospace type, square tiles, pixel scrollbars, and 12 live ASCII wallpapers behind the UI. The Pixel theme page in the sidebar picks a wallpaper and sets light, dark, or system."
   }
 }

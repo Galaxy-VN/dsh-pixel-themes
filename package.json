@@ -1,9 +1,9 @@
 {
   "name": "@local/textmode-pixel-theme",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "private": true,
   "type": "module",
-  "description": "Text-mode pixel-art theme: phosphor and paper palettes, monospace type, square tiles, pixel scrollbars, a live ASCII wallpaper (koi pond / honu lagoon / moonlit) drawn on a canvas behind the UI, and a Pixel theme sidebar page for switching scenes.",
+  "description": "Text-mode pixel-art theme: phosphor and paper palettes, monospace type, square tiles, pixel scrollbars, 12 live ASCII wallpapers drawn on a canvas behind the UI, and a Pixel theme sidebar page with light/dark/system and scene controls.",
   "exports": {
     ".": "./index.js",
     "./client": "./client.js",
