@@ -1,0 +1,3 @@
+- insert:
+    - id: textmode-pixel-theme
+      name: '@local/textmode-pixel-theme'
