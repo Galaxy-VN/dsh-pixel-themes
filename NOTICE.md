@@ -1,7 +1,7 @@
 # Third-party notices
 
-This plugin's live ASCII wallpaper engine and the koi-pond / honu-lagoon scenes
-are derived from **ai-chat-themes** by Lê Hữu Khoa:
+This plugin's live ASCII wallpaper engine and all of its wallpapers are derived
+from **ai-chat-themes** by Lê Hữu Khoa:
 
     https://github.com/Aohkne/ai-chat-themes
 
