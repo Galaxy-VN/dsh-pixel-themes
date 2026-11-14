@@ -1,6 +1,6 @@
 {
   "name": "@local/textmode-pixel-theme",
-  "version": "1.9.0",
+  "version": "1.9.1",
   "private": true,
   "type": "module",
   "description": "Text-mode pixel-art theme for the whole Harness with seven looks (scene ink, phosphor CRT, amber VT, blueprint, vapor, paper, Game Boy) and 14 live ASCII wallpapers, all in monospace with square tiles and pixel scrollbars.",

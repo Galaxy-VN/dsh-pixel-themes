@@ -1461,7 +1461,7 @@ window.__ModuleLoader__.load({
       const mid = h / 2;
       const sway = (u) =>
         Math.sin(t * 1.05 - u * 5.2 + phase) * (1 - u) ** 1.5 * half * 0.38;
-      const field = (gx, gy) => {
+      const cellAt = (gx, gy) => {
         const u = gx / Math.max(1, len - 1);
         const v = gy + 0.5 - mid - sway(u);
         const av = Math.abs(v);
@@ -1490,6 +1490,10 @@ window.__ModuleLoader__.load({
         }
         if (av <= r + 0.55 && u > 0.25 && u < 0.99 && v > 0) return pal.jaw;
         return undefined;
+      };
+      const field = (gx, gy) => {
+        const c = cellAt(gx, gy);
+        return c ? { c } : undefined;
       };
       return { w: len, h, key, a, shadow: '#03101c', x, y, field, glow };
     };
