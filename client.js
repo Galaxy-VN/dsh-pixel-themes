@@ -1627,38 +1627,23 @@ window.__ModuleLoader__.load({
     /* Palette                                                             */
     /* ------------------------------------------------------------------ */
 
+    // Only the surfaces are touched, and only enough to let the wallpaper read
+    // through them: a neutral tint of the stock light/dark neutrals, no accent,
+    // label, border-hue or state colour is replaced. Everything else keeps the
+    // shipped theme exactly as it is.
     const TOKENS = {
-      '--dsw-alias-bg-base': { light: 'rgb(241 235 217 / 58%)', dark: 'rgb(8 11 6 / 46%)' },
-      '--dsw-alias-bg-layer-1': { light: 'rgb(251 247 234 / 74%)', dark: 'rgb(15 20 11 / 64%)' },
-      '--dsw-alias-bg-layer-2': { light: 'rgb(235 228 206 / 86%)', dark: 'rgb(21 28 16 / 78%)' },
-      '--dsw-alias-bg-layer-3': { light: 'rgb(245 239 221 / 88%)', dark: 'rgb(18 26 14 / 78%)' },
-      '--dsw-alias-bg-layer-4': { light: 'rgb(238 231 210 / 90%)', dark: 'rgb(26 36 19 / 85%)' },
-      '--dsw-alias-bg-overlay': { light: 'rgb(255 253 245 / 96%)', dark: 'rgb(27 36 20 / 94%)' },
-      '--dsw-alias-bg-mask-1': { light: 'rgb(40 35 20 / 38%)', dark: 'rgb(2 5 4 / 55%)' },
-      '--dsw-alias-bg-module-platform': { light: 'rgb(239 232 210 / 84%)', dark: 'rgb(23 32 15 / 72%)' },
-      '--dsw-specific-sidebar-fill': { light: 'rgb(231 223 200 / 70%)', dark: 'rgb(10 14 8 / 52%)' },
-      '--dsw-specific-menu': { light: 'rgb(255 253 245 / 97%)', dark: 'rgb(27 36 20 / 96%)' },
-      '--dsw-alias-border-l1': { light: '#CFC6AA', dark: '#263520' },
-      '--dsw-alias-border-l2': { light: '#A2957A', dark: '#3F5733' },
-      '--dsw-alias-border-l3': { light: '#857858', dark: '#587647' },
-      '--dsw-alias-border-l4': { light: '#DED6BC', dark: '#2C3D24' },
-      '--dsw-alias-brand-primary': { light: '#9C4A00', dark: '#FFC24A' },
-      '--dsw-alias-link': { light: '#8A3F00', dark: '#FFD27A' },
-      '--dsw-alias-label-primary': { light: '#1E1B12', dark: '#D6F5BE' },
-      '--dsw-alias-label-secondary': { light: '#57503C', dark: '#93B87D' },
-      '--dsw-alias-label-tertiary': { light: '#6E6752', dark: '#7C9468' },
-      '--dsw-alias-state-success-primary': { light: '#1F6B35', dark: '#74E08A' },
-      '--dsw-alias-state-warn-primary': { light: '#8A5A00', dark: '#FFC24A' },
-      '--dsw-alias-state-error-primary': { light: '#A52A1F', dark: '#FF7A6E' },
-      '--dsw-alias-state-idle-primary': { light: '#7B7358', dark: '#7C9468' },
-      '--dsw-alias-interactive-bg-hover': { light: 'rgb(233 226 202 / 55%)', dark: 'rgb(26 36 19 / 50%)' },
-      '--dsw-alias-button-ghost-active-fill': { light: 'rgb(156 74 0 / 10%)', dark: 'rgb(255 194 74 / 16%)' },
-      '--dsw-alias-button-ghost-active-border': { light: '#9C4A00', dark: '#FFC24A' },
-      '--dsw-alias-menu-icon': { light: '#3F3928', dark: '#C7E4B2' },
-      '--dsw-alias-toast-bg': { light: 'rgb(38 33 21 / 97%)', dark: 'rgb(27 36 20 / 96%)' },
-      '--dsw-alias-toast-label': { light: '#FBF7EA', dark: '#E6FFD6' },
-      '--dsw-alias-switch-thumb': { light: '#FFFDF5', dark: '#D6F5BE' },
-      '--dsw-alias-bg-document-selection': { light: 'rgb(156 74 0 / 30%)', dark: 'rgb(255 194 74 / 38%)' },
+      '--dsw-alias-bg-base': { light: 'rgb(255 255 255 / 66%)', dark: 'rgb(18 18 20 / 58%)' },
+      '--dsw-alias-bg-layer-1': { light: 'rgb(255 255 255 / 78%)', dark: 'rgb(28 28 31 / 72%)' },
+      '--dsw-alias-bg-layer-2': { light: 'rgb(250 250 251 / 86%)', dark: 'rgb(36 36 40 / 82%)' },
+      '--dsw-alias-bg-layer-3': { light: 'rgb(247 247 248 / 86%)', dark: 'rgb(32 32 36 / 82%)' },
+      '--dsw-alias-bg-layer-4': { light: 'rgb(243 243 245 / 90%)', dark: 'rgb(42 42 47 / 88%)' },
+      '--dsw-alias-bg-overlay': { light: 'rgb(255 255 255 / 96%)', dark: 'rgb(44 44 49 / 96%)' },
+      '--dsw-alias-bg-mask-1': { light: 'rgb(0 0 0 / 36%)', dark: 'rgb(0 0 0 / 58%)' },
+      '--dsw-alias-bg-module-platform': { light: 'rgb(246 246 248 / 84%)', dark: 'rgb(32 32 36 / 76%)' },
+      '--dsw-specific-sidebar-fill': { light: 'rgb(250 250 251 / 76%)', dark: 'rgb(16 16 18 / 62%)' },
+      '--dsw-specific-menu': { light: 'rgb(255 255 255 / 97%)', dark: 'rgb(44 44 49 / 97%)' },
+      '--dsw-alias-interactive-bg-hover': { light: 'rgb(0 0 0 / 5%)', dark: 'rgb(255 255 255 / 6%)' },
+      '--dsw-alias-switch-thumb': { light: '#FFFFFF', dark: '#FFFFFF' },
     };
 
     const CSS = `
@@ -1679,11 +1664,11 @@ window.__ModuleLoader__.load({
 }
 
 html {
-  background-color: #F1EBD9;
+  background-color: #FFFFFF;
 }
 
 html:has(body[data-ds-dark-theme]) {
-  background-color: #080B06;
+  background-color: #121214;
 }
 
 body {
@@ -1844,17 +1829,11 @@ h1, h2, h3, h4, h5, h6,
 
         if (!React || !ctx.slots) return;
 
-        const MODES = [
-          { id: 'light', title: 'Light' },
-          { id: 'dark', title: 'Dark' },
-          { id: 'system', title: 'System' },
-        ];
-
         const SCENES_UI = [
           {
             id: 'auto',
             title: 'Auto',
-            desc: 'Koi pond in dark mode, honu lagoon in light.',
+            desc: "Follows the app's own light or dark setting.",
             swatch: 'linear-gradient(135deg, #135c56 0 50%, #a9e9e1 50%)',
           },
           {
@@ -1955,12 +1934,6 @@ h1, h2, h3, h4, h5, h6,
 
         const PixelPage = () => {
           const [state, setState] = React.useState(store);
-          const [pref, setPref] = React.useState(() => ctx.theme.getTheme().preference);
-
-          React.useEffect(() => {
-            const off = ctx.on('theme/change', (snap) => setPref(snap.preference));
-            return typeof off === 'function' ? off : undefined;
-          }, []);
 
           const pick = (scene) => {
             store = { on: true, scene };
@@ -1997,66 +1970,7 @@ h1, h2, h3, h4, h5, h6,
             h(
               'p',
               { style: { margin: '0 0 26px', color: 'var(--dsw-alias-label-secondary)', lineHeight: 1.6 } },
-              'A live ASCII wallpaper runs behind the UI: ',
-              h('b', null, 'koi pond'),
-              ' in dark mode and ',
-              h('b', null, 'honu lagoon'),
-              ' in light mode. Pick a scene, set light/dark/system, or turn the skin off without disabling the plugin.',
-            ),
-            h(
-              'div',
-              {
-                style: {
-                  margin: '0 0 24px',
-                  padding: '14px 16px',
-                  border: '1px solid var(--dsw-alias-border-l1)',
-                  background: 'var(--dsw-alias-bg-layer-1)',
-                },
-              },
-              h(
-                'div',
-                {
-                  style: {
-                    fontSize: 11,
-                    letterSpacing: '.14em',
-                    textTransform: 'uppercase',
-                    color: 'var(--dsw-alias-label-tertiary)',
-                    marginBottom: 10,
-                  },
-                },
-                'Appearance',
-              ),
-              h(
-                'div',
-                { style: { display: 'flex', gap: 8, flexWrap: 'wrap' } },
-                MODES.map((mode) => {
-                  const selected = pref === mode.id;
-                  return h(
-                    'button',
-                    {
-                      key: mode.id,
-                      type: 'button',
-                      onClick: () => ctx.theme.setTheme(mode.id),
-                      'aria-pressed': selected,
-                      style: {
-                        padding: '7px 16px',
-                        cursor: 'pointer',
-                        border: '1px solid ' + (selected ? 'var(--dsw-alias-brand-primary)' : 'var(--dsw-alias-border-l2)'),
-                        background: selected ? 'var(--dsw-alias-bg-module-platform)' : 'transparent',
-                        color: selected ? 'var(--dsw-alias-brand-primary)' : 'var(--dsw-alias-label-secondary)',
-                        fontSize: 12,
-                        letterSpacing: '.06em',
-                      },
-                    },
-                    mode.title,
-                  );
-                }),
-              ),
-              h(
-                'div',
-                { style: { marginTop: 10, fontSize: 11, color: 'var(--dsw-alias-label-tertiary)' } },
-                'System follows the OS. The wallpaper Auto option follows this choice.',
-              ),
+              'A live ASCII wallpaper runs behind the UI. The app keeps its own colors and its own light or dark setting — this theme only adds the monospace type, square tiles and the animated backdrop. Pick a scene, or turn the skin off without disabling the plugin.',
             ),
             h(
               'div',

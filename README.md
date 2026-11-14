@@ -1,19 +1,21 @@
 # Text Mode Pixel Theme
 
-A persistent theme plugin for the DeepSeek Harness Web UI: a text-mode terminal
-palette, monospace type, square tiles, pixel scrollbars, and a **live ASCII
-wallpaper** drawn on a canvas behind the interface.
+A persistent theme plugin for the DeepSeek Harness Web UI: monospace type,
+square tiles, pixel scrollbars, and a **live ASCII wallpaper** drawn on a
+canvas behind the interface. It keeps the Harness **default colors** — no
+custom palette, no separate light or dark theme — and simply follows whichever
+setting you already use.
 
 ## Features
 
 - **12 live ASCII wallpapers:** Auto, Koi pond, Honu lagoon, Moonlit, Cloud
   drift, Fireflies, Jellyfish, Lantern night, Neon rain, Sakura dusk, Snow
   cabin, Star voyage, and Clawd.
-- **Light / dark / system** from the same page (writes the built-in Appearance
-  preference) plus **Auto** wallpaper that follows it.
-- A **Pixel theme** page in the left sidebar switches scenes, sets the mode, or
-  turns the skin off without disabling the plugin. The choice is stored in
-  `localStorage`.
+- **Default colors only.** Only the surface layers turn faintly translucent so
+  the wallpaper shows through; text, brand, borders and state colors stay the
+  shipped Harness values in both light and dark mode.
+- A **Pixel theme** page in the left sidebar switches scenes or turns the skin
+  off without disabling the plugin. The choice is stored in `localStorage`.
 - Respects `prefers-reduced-motion` (draws a still frame).
 - MIT. The ASCII scene engine and the wallpapers are adapted from
   [ai-chat-themes](https://github.com/Aohkne/ai-chat-themes); see
@@ -24,7 +26,7 @@ wallpaper** drawn on a canvas behind the interface.
 This directory is a Harness plugin bundle. Install it with the plugin manager
 (for example `plugin_manager install_bundle` with this absolute directory), then
 restart or hard-refresh the Web UI. The **Pixel theme** icon appears in the left
-sidebar rail; Settings → Appearance still handles light/dark.
+sidebar rail. Light/dark stays where it has always been: Settings → Appearance.
 
 ## Layout
 
