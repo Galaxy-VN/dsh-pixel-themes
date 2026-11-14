@@ -1672,30 +1672,30 @@ window.__ModuleLoader__.load({
     const buildTokens = (accent) => {
       const h = hueOf(accent);
       const pair = (value) => ({ light: value, dark: value });
-      const ink = (lightness, alpha) => `hsl(${h} 15% ${lightness}% / ${alpha})`;
+      const ink = (lightness, alpha) => `hsl(${h} 45% ${lightness}% / ${alpha})`;
       return {
-        '--dsw-alias-bg-base': pair(ink(6, '62%')),
-        '--dsw-alias-bg-layer-1': pair(ink(9, '78%')),
-        '--dsw-alias-bg-layer-2': pair(ink(12, '88%')),
-        '--dsw-alias-bg-layer-3': pair(ink(10, '88%')),
-        '--dsw-alias-bg-layer-4': pair(ink(15, '92%')),
-        '--dsw-alias-bg-overlay': pair(ink(16, '97%')),
+        '--dsw-alias-bg-base': pair(ink(8, '62%')),
+        '--dsw-alias-bg-layer-1': pair(ink(11, '78%')),
+        '--dsw-alias-bg-layer-2': pair(ink(14, '88%')),
+        '--dsw-alias-bg-layer-3': pair(ink(12, '88%')),
+        '--dsw-alias-bg-layer-4': pair(ink(17, '92%')),
+        '--dsw-alias-bg-overlay': pair(ink(18, '97%')),
         '--dsw-alias-bg-mask-1': pair('rgb(0 0 0 / 58%)'),
-        '--dsw-alias-bg-module-platform': pair(ink(11, '82%')),
-        '--dsw-specific-sidebar-fill': pair(ink(5, '68%')),
-        '--dsw-specific-menu': pair(ink(16, '98%')),
+        '--dsw-alias-bg-module-platform': pair(ink(13, '82%')),
+        '--dsw-specific-sidebar-fill': pair(ink(7, '68%')),
+        '--dsw-specific-menu': pair(ink(18, '98%')),
         '--dsw-alias-interactive-bg-hover': pair(`hsl(${h} 60% 70% / 10%)`),
         '--dsw-alias-switch-thumb': pair('#FFF3E6'),
         '--dsw-alias-label-primary': pair('#F2EFE8'),
         '--dsw-alias-label-secondary': pair('#BEB8AA'),
         '--dsw-alias-label-tertiary': pair('#918A7C'),
         '--dsw-alias-brand-primary': pair(accent),
-        '--dsw-alias-border-l1': pair(`hsl(${h} 12% 22%)`),
-        '--dsw-alias-border-l2': pair(`hsl(${h} 12% 32%)`),
-        '--dsw-alias-border-l3': pair(`hsl(${h} 12% 43%)`),
-        '--dsw-alias-border-l4': pair(`hsl(${h} 12% 17%)`),
+        '--dsw-alias-border-l1': pair(`hsl(${h} 32% 26%)`),
+        '--dsw-alias-border-l2': pair(`hsl(${h} 32% 36%)`),
+        '--dsw-alias-border-l3': pair(`hsl(${h} 32% 47%)`),
+        '--dsw-alias-border-l4': pair(`hsl(${h} 32% 20%)`),
         '--dsw-specific-menu-icon': pair('#E6DECC'),
-        '--dsw-alias-toast-bg': pair(ink(14, '97%')),
+        '--dsw-alias-toast-bg': pair(ink(16, '97%')),
         '--dsw-alias-toast-label': pair('#F2EFE8'),
         '--dsw-alias-bg-document-selection': pair(
           `color-mix(in srgb, ${accent} 34%, transparent)`,
@@ -1707,7 +1707,7 @@ window.__ModuleLoader__.load({
       };
     };
 
-    const pageBackground = (accent) => `hsl(${hueOf(accent)} 16% 5%)`;
+    const pageBackground = (accent) => `hsl(${hueOf(accent)} 40% 5%)`;
 
     const CSS = `
 :root {

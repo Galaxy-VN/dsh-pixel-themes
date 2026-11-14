@@ -1,6 +1,6 @@
 {
   "name": "@local/textmode-pixel-theme",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "private": true,
   "type": "module",
   "description": "Text-mode pixel-art theme for the whole Harness: each scene accent tints every surface, border and the brand color, with monospace type, square tiles, pixel scrollbars and 12 live ASCII wallpapers behind the UI.",
