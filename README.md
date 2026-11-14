@@ -1,19 +1,24 @@
 # Text Mode Pixel Theme
 
-A persistent theme plugin for the DeepSeek Harness Web UI: **one fixed warm
-terminal palette** covering the whole interface — ink surfaces, amber accents,
-monospace type, square tiles, pixel scrollbars — with a **live ASCII wallpaper**
-drawn on a canvas behind it. There is no light or dark variant: the theme keeps
-the same look whatever the app's own appearance preference says.
+A persistent theme plugin for the DeepSeek Harness Web UI: **the app wears the
+theme's own colors** — surfaces, layers, sidebar, borders, labels and the brand
+color are generated from the accent of the chosen scene, so picking a wallpaper
+repaints the whole interface to match it. Monospace type, square tiles, pixel
+scrollbars, and a **live ASCII wallpaper** drawn on a canvas behind the UI.
+There is no light or dark variant: the theme keeps the same look whatever the
+app's own appearance preference says.
 
 ## Features
 
 - **12 live ASCII wallpapers:** Auto, Koi pond, Honu lagoon, Moonlit, Cloud
   drift, Fireflies, Jellyfish, Lantern night, Neon rain, Sakura dusk, Snow
   cabin, Star voyage, and Clawd.
+- **Each scene tints the UI.** Auto uses amber; koi pond is teal, moonlit is
+  periwinkle, sakura is rose, and so on. The tokens are rebuilt from the
+  scene's hue, so the Harness never falls back to the stock gray.
 - **One palette everywhere.** Backgrounds, layers, sidebar, menus, borders,
   labels, brand and state colors are all set to the theme, in both the light
-  and dark token slots, so the UI never falls back to the stock gray.
+  and dark token slots.
 - A **Pixel theme** page in the left sidebar switches scenes or turns the skin
   off without disabling the plugin. The choice is stored in `localStorage`.
 - Respects `prefers-reduced-motion` (draws a still frame).

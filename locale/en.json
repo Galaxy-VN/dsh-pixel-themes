@@ -1,6 +1,6 @@
 {
   "meta": {
     "title": "Text Mode Pixel Theme",
-    "description": "Restyles the whole Harness in one fixed warm terminal palette: ink surfaces, amber accents, monospace type, square tiles, pixel scrollbars, and 12 live ASCII wallpapers behind the UI. There is no light/dark switch — the theme looks the same either way."
+    "description": "Paints the whole Harness with the theme: every surface, border and the brand color take the hue of the chosen scene accent, so picking a wallpaper repaints the UI to match it. Monospace type, square tiles, pixel scrollbars and 12 live ASCII wallpapers. No light/dark switch."
   }
 }

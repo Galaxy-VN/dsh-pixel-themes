@@ -1631,69 +1631,83 @@ window.__ModuleLoader__.load({
     // through them: a neutral tint of the stock light/dark neutrals, no accent,
     // label, border-hue or state colour is replaced. Everything else keeps the
     // shipped theme exactly as it is.
-    // One fixed terminal palette, in both slots: the whole Harness is the theme,
-    // whatever light/dark preference the app itself happens to hold.
-    const P = {
-      base: 'rgb(10 9 7 / 62%)',
-      layer1: 'rgb(20 18 14 / 78%)',
-      layer2: 'rgb(30 27 20 / 88%)',
-      layer3: 'rgb(25 22 16 / 88%)',
-      layer4: 'rgb(38 34 25 / 92%)',
-      overlay: 'rgb(40 36 27 / 97%)',
-      mask: 'rgb(0 0 0 / 58%)',
-      module: 'rgb(27 24 18 / 82%)',
-      sidebar: 'rgb(14 12 9 / 68%)',
-      menu: 'rgb(40 36 27 / 98%)',
-      hover: 'rgb(255 214 140 / 9%)',
-      thumb: '#FFE7B8',
-      label1: '#F3E9D2',
-      label2: '#B9AB8D',
-      brand: '#FFC24A',
-      l1: '#3A3325',
-      l2: '#5C5138',
-      l3: '#7A6B47',
-      l4: '#2E281D',
-      icon: '#E3D6B4',
-      toastBg: '#26221A',
-      toastLabel: '#F7EFDA',
-      selection: 'rgb(255 194 74 / 32%)',
-      ok: '#8BE08A',
-      warn: '#FFC24A',
-      err: '#FF8A72',
-      idle: '#9A917C',
+    // Every scene carries an accent; the whole Harness is repainted from that
+    // accent's hue, so choosing a wallpaper is choosing a theme.
+    const ACCENTS = {
+      auto: '#FFC24A',
+      'koi-pond': '#57D8C4',
+      'honu-lagoon': '#7FE3D2',
+      moonlit: '#9AAEFF',
+      'cloud-drift': '#9BB7D4',
+      fireflies: '#E3D06A',
+      jellyfish: '#C08CF0',
+      'lantern-night': '#FFA45C',
+      'neon-rain': '#6CE0FF',
+      'sakura-dusk': '#F2A0C0',
+      'snow-cabin': '#BFD9F2',
+      'star-voyage': '#A98CF0',
+      clawd: '#D97757',
     };
-    const pair = (value) => ({ light: value, dark: value });
 
-    const TOKENS = {
-      '--dsw-alias-bg-base': pair(P.base),
-      '--dsw-alias-bg-layer-1': pair(P.layer1),
-      '--dsw-alias-bg-layer-2': pair(P.layer2),
-      '--dsw-alias-bg-layer-3': pair(P.layer3),
-      '--dsw-alias-bg-layer-4': pair(P.layer4),
-      '--dsw-alias-bg-overlay': pair(P.overlay),
-      '--dsw-alias-bg-mask-1': pair(P.mask),
-      '--dsw-alias-bg-module-platform': pair(P.module),
-      '--dsw-specific-sidebar-fill': pair(P.sidebar),
-      '--dsw-specific-menu': pair(P.menu),
-      '--dsw-alias-interactive-bg-hover': pair(P.hover),
-      '--dsw-alias-switch-thumb': pair(P.thumb),
-      '--dsw-alias-label-primary': pair(P.label1),
-      '--dsw-alias-label-secondary': pair(P.label2),
-      '--dsw-alias-label-tertiary': pair('#8C8067'),
-      '--dsw-alias-brand-primary': pair(P.brand),
-      '--dsw-alias-border-l1': pair(P.l1),
-      '--dsw-alias-border-l2': pair(P.l2),
-      '--dsw-alias-border-l3': pair(P.l3),
-      '--dsw-alias-border-l4': pair(P.l4),
-      '--dsw-specific-menu-icon': pair(P.icon),
-      '--dsw-alias-toast-bg': pair(P.toastBg),
-      '--dsw-alias-toast-label': pair(P.toastLabel),
-      '--dsw-alias-bg-document-selection': pair(P.selection),
-      '--dsw-alias-state-success-primary': pair(P.ok),
-      '--dsw-alias-state-warn-primary': pair(P.warn),
-      '--dsw-alias-state-error-primary': pair(P.err),
-      '--dsw-alias-state-idle-primary': pair(P.idle),
+    const accentFor = (scene) => ACCENTS[scene] || ACCENTS.auto;
+
+    const hueOf = (hex) => {
+      const n = parseInt(hex.slice(1), 16);
+      const r = ((n >> 16) & 255) / 255;
+      const g = ((n >> 8) & 255) / 255;
+      const b = (n & 255) / 255;
+      const max = Math.max(r, g, b);
+      const min = Math.min(r, g, b);
+      if (max === min) return 38;
+      const d = max - min;
+      const hue =
+        max === r
+          ? (g - b) / d + (g < b ? 6 : 0)
+          : max === g
+            ? (b - r) / d + 2
+            : (r - g) / d + 4;
+      return Math.round(hue * 60);
     };
+
+    const buildTokens = (accent) => {
+      const h = hueOf(accent);
+      const pair = (value) => ({ light: value, dark: value });
+      const ink = (lightness, alpha) => `hsl(${h} 15% ${lightness}% / ${alpha})`;
+      return {
+        '--dsw-alias-bg-base': pair(ink(6, '62%')),
+        '--dsw-alias-bg-layer-1': pair(ink(9, '78%')),
+        '--dsw-alias-bg-layer-2': pair(ink(12, '88%')),
+        '--dsw-alias-bg-layer-3': pair(ink(10, '88%')),
+        '--dsw-alias-bg-layer-4': pair(ink(15, '92%')),
+        '--dsw-alias-bg-overlay': pair(ink(16, '97%')),
+        '--dsw-alias-bg-mask-1': pair('rgb(0 0 0 / 58%)'),
+        '--dsw-alias-bg-module-platform': pair(ink(11, '82%')),
+        '--dsw-specific-sidebar-fill': pair(ink(5, '68%')),
+        '--dsw-specific-menu': pair(ink(16, '98%')),
+        '--dsw-alias-interactive-bg-hover': pair(`hsl(${h} 60% 70% / 10%)`),
+        '--dsw-alias-switch-thumb': pair('#FFF3E6'),
+        '--dsw-alias-label-primary': pair('#F2EFE8'),
+        '--dsw-alias-label-secondary': pair('#BEB8AA'),
+        '--dsw-alias-label-tertiary': pair('#918A7C'),
+        '--dsw-alias-brand-primary': pair(accent),
+        '--dsw-alias-border-l1': pair(`hsl(${h} 12% 22%)`),
+        '--dsw-alias-border-l2': pair(`hsl(${h} 12% 32%)`),
+        '--dsw-alias-border-l3': pair(`hsl(${h} 12% 43%)`),
+        '--dsw-alias-border-l4': pair(`hsl(${h} 12% 17%)`),
+        '--dsw-specific-menu-icon': pair('#E6DECC'),
+        '--dsw-alias-toast-bg': pair(ink(14, '97%')),
+        '--dsw-alias-toast-label': pair('#F2EFE8'),
+        '--dsw-alias-bg-document-selection': pair(
+          `color-mix(in srgb, ${accent} 34%, transparent)`,
+        ),
+        '--dsw-alias-state-success-primary': pair('#8BE08A'),
+        '--dsw-alias-state-warn-primary': pair('#FFC24A'),
+        '--dsw-alias-state-error-primary': pair('#FF8A72'),
+        '--dsw-alias-state-idle-primary': pair('#9A917C'),
+      };
+    };
+
+    const pageBackground = (accent) => `hsl(${hueOf(accent)} 16% 5%)`;
 
     const CSS = `
 :root {
@@ -1834,6 +1848,8 @@ h1, h2, h3, h4, h5, h6,
         let styleEl;
         let paletteOff;
 
+        let paletteKey;
+
         const applySkin = () => {
           if (!store.on) {
             stopWall();
@@ -1841,10 +1857,12 @@ h1, h2, h3, h4, h5, h6,
               paletteOff();
               paletteOff = undefined;
             }
+            paletteKey = undefined;
             if (styleEl) {
               styleEl.remove();
               styleEl = undefined;
             }
+            document.documentElement.style.removeProperty('background-color');
             return;
           }
 
@@ -1855,7 +1873,18 @@ h1, h2, h3, h4, h5, h6,
             document.head.appendChild(styleEl);
           }
 
-          if (!paletteOff) paletteOff = ctx.theme.overrideTokens(SOURCE, TOKENS);
+          // Repaint the whole skin whenever the chosen scene changes: its
+          // accent sets the hue of every surface, border and the brand color.
+          const accent = accentFor(store.scene);
+          if (paletteKey !== accent) {
+            if (paletteOff) paletteOff();
+            paletteOff = ctx.theme.overrideTokens(SOURCE, buildTokens(accent));
+            paletteKey = accent;
+            document.documentElement.style.setProperty(
+              'background-color',
+              pageBackground(accent),
+            );
+          }
 
           // The skin is one fixed dark terminal; the app's own light/dark
           // preference no longer changes the look, so the wallpaper always
@@ -1872,7 +1901,11 @@ h1, h2, h3, h4, h5, h6,
             mo.disconnect();
             stopWall();
             if (paletteOff) paletteOff();
+            paletteOff = undefined;
+            paletteKey = undefined;
             if (styleEl) styleEl.remove();
+            styleEl = undefined;
+            document.documentElement.style.removeProperty('background-color');
           };
         }, 'textmode-pixel: skin and wallpaper');
 
@@ -1882,8 +1915,8 @@ h1, h2, h3, h4, h5, h6,
           {
             id: 'auto',
             title: 'Auto',
-            desc: "Follows the app's own light or dark setting.",
-            swatch: 'linear-gradient(135deg, #135c56 0 50%, #a9e9e1 50%)',
+            desc: 'Amber terminal tint with the koi pond wallpaper.',
+            swatch: 'linear-gradient(135deg, #ffc24a, #7a3f00)',
           },
           {
             id: 'koi-pond',
@@ -2019,7 +2052,7 @@ h1, h2, h3, h4, h5, h6,
             h(
               'p',
               { style: { margin: '0 0 26px', color: 'var(--dsw-alias-label-secondary)', lineHeight: 1.6 } },
-              'The whole interface wears the theme: warm terminal ink, amber accents and square tiles, with a live ASCII wallpaper behind it. There is no light or dark switch — it looks the same whatever the app preference says. Pick a scene, or turn the skin off without disabling the plugin.',
+              'The whole interface wears the theme: every surface, border and the brand color take their hue from the scene accent, so picking a wallpaper repaints the Harness to match it. Square tiles, monospace type and a live ASCII wallpaper sit underneath. There is no light or dark switch — it looks the same whatever the app preference says.',
             ),
             h(
               'div',
