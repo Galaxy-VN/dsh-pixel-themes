@@ -22,9 +22,7 @@ app's own appearance preference says.
 - A **Pixel theme** page in the left sidebar switches scenes or turns the skin
   off without disabling the plugin. The choice is stored in `localStorage`.
 - Respects `prefers-reduced-motion` (draws a still frame).
-- MIT. The ASCII scene engine and the wallpapers are adapted from
-  [ai-chat-themes](https://github.com/Aohkne/ai-chat-themes); see
-  [NOTICE.md](NOTICE.md).
+- MIT.
 
 ## Install
 
@@ -44,4 +42,3 @@ Appearance no longer changes how it looks.
 | `client.js` | The whole skin: theme tokens, CSS, ASCII scene engine, sidebar page. |
 | `locale/en.json`, `locale/zh.json` | Plugin Manager title and description. |
 | `icon.svg` | Plugin icon. |
-| `NOTICE.md` | Third-party MIT attribution. |
