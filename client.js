@@ -1422,6 +1422,160 @@ window.__ModuleLoader__.load({
       },
     };
 
+    // [WHALE-START]
+    const WHALE_PROFILE = [
+      [0.0, 0.06], [0.05, 0.42], [0.1, 0.55], [0.135, 0.3], [0.175, 0.26],
+      [0.23, 0.36], [0.3, 0.52], [0.38, 0.7], [0.47, 0.86], [0.56, 0.96],
+      [0.64, 1.0], [0.74, 1.0], [0.82, 0.99], [0.88, 0.96], [0.925, 0.9],
+      [0.955, 0.8], [0.975, 0.64], [0.99, 0.42], [1.0, 0.2],
+    ];
+    const whaleHalf = (u) => {
+      if (u <= 0) return 0.06;
+      if (u >= 1) return 0.16;
+      for (let i = 1; i < WHALE_PROFILE.length; i++) {
+        const [u1, r1] = WHALE_PROFILE[i];
+        if (u <= u1) {
+          const [u0, r0] = WHALE_PROFILE[i - 1];
+          return r0 + (r1 - r0) * ((u - u0) / (u1 - u0));
+        }
+      }
+      return 0.16;
+    };
+    const whalePal = (rim, back, flank, belly) => ({
+      rim: { bg: rim, ch: '', a: 0.98 },
+      back: { bg: back, ch: '', a: 0.97 },
+      flank: { bg: flank, ch: '', a: 0.97 },
+      belly: { bg: belly, ch: '', a: 0.96 },
+      pleat: { bg: shade(belly, -0.08), ch: '', a: 0.96 },
+      jaw: { bg: shade(flank, -0.45), ch: '', a: 0.97 },
+      fin: { bg: shade(flank, -0.3), ch: '', a: 0.97 },
+      fluke: { bg: shade(flank, -0.2), ch: '', a: 0.97 },
+      eye: { bg: '#eaf8ff', ch: '', a: 0.99 },
+    });
+    const WHALE_DEEP = whalePal('#b6dcf4', '#4d84b4', '#2f5d84', '#bcdcee');
+    const WHALE_CALF = whalePal('#b3daf2', '#5b93bd', '#3e7299', '#c2e0f0');
+
+    const whale = (t, cfg) => {
+      const { len, half, pal, key, phase, x, y, glow, a } = cfg;
+      const h = Math.ceil(half * 2 + 10);
+      const mid = h / 2;
+      const sway = (u) =>
+        Math.sin(t * 1.05 - u * 5.2 + phase) * (1 - u) ** 1.5 * half * 0.38;
+      const field = (gx, gy) => {
+        const u = gx / Math.max(1, len - 1);
+        const v = gy + 0.5 - mid - sway(u);
+        const av = Math.abs(v);
+        const r = half * whaleHalf(u);
+        if (u <= 0.15) {
+          const k = 1 - u / 0.15;
+          const lobe = half * 0.74 * Math.pow(k, 0.62);
+          if (av <= lobe && av > lobe * 0.3) return pal.fluke;
+          if (av <= lobe * 0.3) return pal.flank;
+        }
+        const eyeD = Math.hypot((u - 0.835) * len, v + r * 0.18);
+        if (eyeD <= 0.95) return eyeD <= 0.5 ? pal.eye : pal.jaw;
+        if (u > 0.615 && u < 0.775) {
+          const dc = r - 0.3 + ((0.775 - u) / 0.16) * half * 0.42;
+          if (Math.abs(v - dc) <= 0.62) return pal.fin;
+        }
+        if (av <= r) {
+          if (u > 0.86 && Math.abs(v - r * 0.5) < 0.55) return pal.jaw;
+          if (v < -r * 0.62) return av > r - 0.9 ? pal.rim : pal.back;
+          if (v > r * 0.52 && u < 0.94) {
+            const rel = (v / r - 0.52) / 0.48;
+            const pleat = u > 0.5 && Math.floor(rel * 4) % 2 === 1;
+            return pleat ? pal.pleat : pal.belly;
+          }
+          return pal.flank;
+        }
+        if (av <= r + 0.55 && u > 0.25 && u < 0.99 && v > 0) return pal.jaw;
+        return undefined;
+      };
+      return { w: len, h, key, a, shadow: '#03101c', x, y, field, glow };
+    };
+
+    const WHALE_ADULT_W = 40;
+    const WHALE_CALF_W = 26;
+    const WHALE_FAR_W = 34;
+    const WHALE_FAR = whalePal('#25577a', '#194158', '#16394d', '#1e4a63');
+
+    SCENES['deep-whale'] = {
+      cell: (x, y, cols, rows, t) => {
+        const W = cols - SIDE;
+        for (let i = 0; i < 4; i++) {
+          const top = SIDE + W * (0.1 + i * 0.26);
+          const cx = top + (y - rows * 0.3) * 0.5;
+          const wide = 1.5 + i * 0.6;
+          const spread = Math.abs(x - cx);
+          if (spread < wide && y < rows * 0.92) {
+            const a = 0.055 * (1 - y / rows) * (1 - spread / wide);
+            if (a > 0.004) return { ch: i % 2 ? ':' : '|', fg: '#9fd0f0', a };
+          }
+        }
+        for (let i = 0; i < 7; i++) {
+          const cx = SIDE + hash(i, 71) * W;
+          const span = rows * 1.7;
+          const yy = rows - ((t * (1.2 + hash(i, 72) * 1.6) + hash(i, 73) * span) % span);
+          if (Math.abs(x - cx) < 0.55 && Math.abs(y - yy) < 0.55) {
+            return { ch: hash(x, y, 74) < 0.5 ? 'o' : '.', fg: '#c4ecff', a: 0.4 };
+          }
+        }
+        for (let i = 0; i < 2; i++) {
+          const rr = ((t * 1.1 + i * 7) % 16) + 0.4;
+          const d = Math.hypot(x - (SIDE + W * 0.52), y - rows * 0.46);
+          if (Math.abs(d - rr) < 0.55) return { ch: '.', fg: '#8ea6ff', a: 0.2 * (1 - rr / 16) };
+        }
+        const caust = Math.sin(x * 0.85 + t * 0.7 + Math.sin(y * 0.55 + t * 0.45) * 2.1);
+        if (y < rows * 0.26 && caust > 0.93) {
+          return { ch: '~', fg: '#8fd0ff', a: 0.11 * (1 - y / (rows * 0.26)) };
+        }
+        for (let i = 0; i < 11; i++) {
+          const fx = SIDE + ((hash(i, 91) * W + t * 0.85) % W);
+          const fy = rows * 0.7 + hash(i, 92) * 3.4 + Math.sin(t * 0.75 + i) * 0.7;
+          if (Math.abs(x - fx) < 0.6 && Math.abs(y - fy) < 0.6) {
+            return { ch: '-', fg: '#8fc0e0', a: 0.34 };
+          }
+        }
+        if (hash(x, y, 81) < 0.0015) return { ch: '+', fg: '#7aa2ff', a: 0.45 };
+        return twinkle(x, y, t, '#a9d8ff', 0.007);
+      },
+      sprites: (cols, rows, t) => {
+        const adultX = drift(cols, 0.56, t, 1.0, WHALE_ADULT_W) - WHALE_ADULT_W / 2;
+        return [
+          whale(t, {
+            len: WHALE_FAR_W,
+            half: 3.2,
+            pal: WHALE_FAR,
+            key: 19,
+            phase: 1.2,
+            a: 0.42,
+            x: drift(cols, 0.42, t, 0.45, WHALE_FAR_W) - WHALE_FAR_W / 2,
+            y: rows * 0.07,
+          }),
+          whale(t, {
+            len: WHALE_CALF_W,
+            half: 2.5,
+            pal: WHALE_CALF,
+            key: 21,
+            phase: 2.4,
+            x: adultX + 4,
+            y: rows * 0.44 + 17,
+          }),
+          whale(t, {
+            len: WHALE_ADULT_W,
+            half: 6.5,
+            pal: WHALE_DEEP,
+            key: 20,
+            phase: 0,
+            glow: { r: 26, color: '#4d6bfe', a: 0.13 },
+            x: adultX,
+            y: rows * 0.44,
+          }),
+        ];
+      },
+    };
+    // [WHALE-END]
+
     /* ------------------------------------------------------------------ */
     /* Wallpaper engine                                                    */
     /* ------------------------------------------------------------------ */
@@ -1441,6 +1595,7 @@ window.__ModuleLoader__.load({
       'snow-cabin': ['#0c1526', '#16233d', '#070d18'],
       'star-voyage': ['#0a0a1a', '#1a1030', '#05040d'],
       clawd: ['#1c0f0a', '#2a1a12', '#0e0805'],
+      'deep-whale': ['#0d3350', '#082238', '#030b14'],
     };
     const calm = () =>
       matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -1647,6 +1802,7 @@ window.__ModuleLoader__.load({
       'snow-cabin': '#BFD9F2',
       'star-voyage': '#A98CF0',
       clawd: '#D97757',
+      'deep-whale': '#6E8BFF',
     };
 
     const accentFor = (scene) => ACCENTS[scene] || ACCENTS.auto;
@@ -2034,6 +2190,7 @@ h1, h2, h3, h4, h5, h6,
       'snow-cabin',
       'star-voyage',
       'clawd',
+      'deep-whale',
     ]);
 
     const readStore = () => {
@@ -2253,6 +2410,12 @@ h1, h2, h3, h4, h5, h6,
             title: 'Clawd',
             desc: 'A warm orange creature reaching out of the dark.',
             swatch: 'linear-gradient(135deg, #1c0f0a, #d97757)',
+          },
+          {
+            id: 'deep-whale',
+            title: 'Deep whale',
+            desc: 'A great whale and its calf crossing a luminous deep-sea column.',
+            swatch: 'linear-gradient(135deg, #0d3350, #6e8bff)',
           },
         ];
 

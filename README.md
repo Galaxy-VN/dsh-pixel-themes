@@ -25,12 +25,13 @@ desk.
   the Harness never falls back to its stock gray.
 - **Two independent dials.** A *look* owns the palette and any CRT texture
   (scanlines, grids, glow); a *wallpaper* owns the animated ASCII scene. Any
-  of the seven looks can sit under any of the thirteen scenes.
+  of the seven looks can sit under any of the fourteen scenes.
 - **Color follows the scene in Scene ink.** That look derives every surface
   from the wallpaper accent; the other six bring their own fixed palette.
-- **12 live ASCII wallpapers** drawn on a canvas behind the interface:
+- **13 live ASCII wallpapers** drawn on a canvas behind the interface:
   koi pond, honu lagoon, moonlit, cloud drift, fireflies, jellyfish, lantern
-  night, neon rain, sakura dusk, snow cabin, star voyage, clawd.
+  night, neon rain, sakura dusk, snow cabin, star voyage, clawd and deep whale —
+  a great whale and its calf crossing a luminous deep-sea column.
 - **Text-mode chrome.** Monospace everywhere, ligatures off, hard 1–4 px
   shadows, square corners, 10 px pixel scrollbars.
 - **No light/dark switch.** Every look is fixed and ignores the app's
@@ -98,6 +99,12 @@ Paper is the seventh: the same layout on a warm daylight desk.
 | Snow cabin | `#BFD9F2` frost | Falling snow, warm window |
 | Star voyage | `#A98CF0` indigo | Starfield drift |
 | Clawd | `#D97757` clay | The little mascot, pixel by pixel |
+| Deep whale | `#6E8BFF` abyss | A whale and calf under DeepSeek-blue light |
+
+<p align="center">
+  <img src="docs/preview-scene-deep-whale.png" alt="Deep whale wallpaper" width="760"><br>
+  <sub><b>Deep whale</b> — one animated frame of the canvas: caustics overhead, a distant whale, a mother and calf, sonar rings and a drifting school.</sub>
+</p>
 
 ## Install
 
@@ -126,7 +133,7 @@ A single client half registers two things inside one `ctx.effect`:
 The token layer is **rebuilt whenever the look or, for Scene ink, the scene
 accent changes**. Painted looks carry their own fixed palette; Scene ink derives
 every surface and border from the accent's hue while labels stay warm off-white,
-so text contrast holds on all thirteen scenes.
+so text contrast holds on all fourteen scenes.
 
 ```js
 const look = store.look;                                  // e.g. 'phosphor'
