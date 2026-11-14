@@ -3,8 +3,9 @@
 # Text Mode Pixel
 
 **A pixel-art terminal skin for the DeepSeek Harness Web UI.**
-Square tiles, monospace type, and a live ASCII wallpaper — with the entire
-interface dyed in the color of the scene you pick.
+Square tiles, monospace type, and a live ASCII wallpaper — with seven looks
+that paint the entire interface, from phosphor CRT green to a daylight paper
+desk.
 
 [![License](https://img.shields.io/badge/license-MIT-ffc24a?style=flat-square)](LICENSE)
 ![Platform](https://img.shields.io/badge/platform-DSH%20Web-57d8c4?style=flat-square)
@@ -22,16 +23,19 @@ interface dyed in the color of the scene you pick.
 - **Paints the whole app.** Backgrounds, layers, sidebar, menus, borders,
   labels, hover states, toasts and the brand color all come from the theme —
   the Harness never falls back to its stock gray.
-- **Color follows the scene.** Every wallpaper carries an accent; selecting one
-  rebuilds the token layer from that hue, so the UI and the animation always
-  agree.
+- **Two independent dials.** A *look* owns the palette and any CRT texture
+  (scanlines, grids, glow); a *wallpaper* owns the animated ASCII scene. Any
+  of the seven looks can sit under any of the thirteen scenes.
+- **Color follows the scene in Scene ink.** That look derives every surface
+  from the wallpaper accent; the other six bring their own fixed palette.
 - **12 live ASCII wallpapers** drawn on a canvas behind the interface:
   koi pond, honu lagoon, moonlit, cloud drift, fireflies, jellyfish, lantern
   night, neon rain, sakura dusk, snow cabin, star voyage, clawd.
 - **Text-mode chrome.** Monospace everywhere, ligatures off, hard 1–4 px
   shadows, square corners, 10 px pixel scrollbars.
-- **No light/dark switch.** It is one fixed dark terminal look; the app's own
-  appearance preference does not repaint it.
+- **No light/dark switch.** Every look is fixed and ignores the app's
+  appearance preference. Paper and Game Boy are daylight looks and hide the
+  wallpaper so the page stays readable.
 - **Reduced motion respected** — a still frame is drawn instead of animating.
 
 <table>
@@ -47,6 +51,35 @@ interface dyed in the color of the scene you pick.
 
 > Previews are rendered from the theme's own CSS variables, so they show the
 > exact palette the plugin applies. They are not screenshots of a live session.
+
+## Looks
+
+| Look | Palette | Texture |
+| --- | --- | --- |
+| Scene ink | Dyed by the scene accent | none |
+| Phosphor CRT | Green phosphor on black | scanlines + text glow |
+| Amber VT | Amber monochrome | scanlines |
+| Blueprint | Navy drafting table, cyan ink | 24 px grid |
+| Vapor | Deep purple, hot pink | 34 px neon grid |
+| Paper | Daylight paper, brown ink | faint dot grain |
+| Game Boy | Four DMG greens | 4 px LCD grid |
+
+<table>
+<tr>
+<td width="50%"><img src="docs/preview-look-terminal.png" alt="Scene ink look"><br><sub><b>Scene ink</b></sub></td>
+<td width="50%"><img src="docs/preview-look-phosphor.png" alt="Phosphor CRT look"><br><sub><b>Phosphor CRT</b></sub></td>
+</tr>
+<tr>
+<td width="50%"><img src="docs/preview-look-amber.png" alt="Amber VT look"><br><sub><b>Amber VT</b></sub></td>
+<td width="50%"><img src="docs/preview-look-blueprint.png" alt="Blueprint look"><br><sub><b>Blueprint</b></sub></td>
+</tr>
+<tr>
+<td width="50%"><img src="docs/preview-look-vapor.png" alt="Vapor look"><br><sub><b>Vapor</b></sub></td>
+<td width="50%"><img src="docs/preview-look-gameboy.png" alt="Game Boy look"><br><sub><b>Game Boy</b></sub></td>
+</tr>
+</table>
+
+Paper is the seventh: the same layout on a warm daylight desk.
 
 ## Scenes
 
@@ -75,8 +108,8 @@ plugin_manager install_bundle  →  target: <absolute path to this folder>
 ```
 
 Then restart or hard-refresh the Web UI (`Ctrl` + `Shift` + `R`). A **Pixel
-theme** icon appears in the left sidebar rail; opening it lists every scene,
-and a second click on the active card turns the skin off without disabling the
+theme** icon appears in the left sidebar rail; opening it lists every look and
+scene, and the button at the bottom turns the skin off without disabling the
 plugin.
 
 The install is a junction to this working copy, so editing `client.js` and
@@ -90,19 +123,21 @@ A single client half registers two things inside one `ctx.effect`:
    scrollbars, hard shadows);
 2. a theme layer via `ctx.theme.overrideTokens(source, tokens)`.
 
-The token layer is **regenerated from the chosen scene's accent**: the accent's
-hue drives every surface and border, while labels stay warm off-white so text
-contrast holds on all thirteen palettes.
+The token layer is **rebuilt whenever the look or, for Scene ink, the scene
+accent changes**. Painted looks carry their own fixed palette; Scene ink derives
+every surface and border from the accent's hue while labels stay warm off-white,
+so text contrast holds on all thirteen scenes.
 
 ```js
-const accent = accentFor(store.scene);            // e.g. '#57D8C4'
-paletteOff = ctx.theme.overrideTokens(SOURCE, buildTokens(accent));
-document.documentElement.style.setProperty('background-color', pageBackground(accent));
-startWall(sceneFor(store.scene, true), true);      // the ASCII canvas
+const look = store.look;                                  // e.g. 'phosphor'
+paletteOff = ctx.theme.overrideTokens(SOURCE, tokensFor(look, store.scene));
+document.documentElement.style.setProperty('background-color', backgroundFor(look, store.scene));
 ```
 
-The sidebar page writes `{ on, scene }` to `localStorage` under `tm.pixel`, so
-the choice survives reloads.
+Looks that draw a texture mount a single fixed `#tm-look-overlay` layer with
+`pointer-events: none`; daylight looks skip the wallpaper entirely. The sidebar
+page writes `{ on, look, scene }` to `localStorage` under `tm.pixel`, so the
+choice survives reloads.
 
 ## Project layout
 
@@ -115,7 +150,7 @@ the choice survives reloads.
 | `locale/en.json`, `locale/zh.json` | Plugin Manager title and description |
 | `icon.svg` | Pixel monitor icon |
 | `LICENSE` | MIT licence |
-| `docs/preview-*.png` | Palette previews used by this README |
+| `docs/preview-*.png` | Palette and look previews used by this README |
 
 ## Development
 

@@ -1709,6 +1709,223 @@ window.__ModuleLoader__.load({
 
     const pageBackground = (accent) => `hsl(${hueOf(accent)} 40% 5%)`;
 
+    const LOOKS = {
+      terminal: {
+        title: 'Scene ink',
+        desc: 'The picked scene dyes every surface.',
+        swatch: 'linear-gradient(135deg, #ffc24a, #57d8c4)',
+        dark: true,
+      },
+      phosphor: {
+        title: 'Phosphor CRT',
+        desc: 'Green phosphor, scanlines, a soft glow.',
+        swatch: 'linear-gradient(135deg, #04120a, #4dff9a)',
+        dark: true,
+        overlay:
+          'repeating-linear-gradient(180deg, rgba(0,0,0,.30) 0 1px, transparent 1px 3px)',
+        spec: {
+          bg: '#04120A',
+          l1: '#071C10',
+          l2: '#0A2614',
+          ov: '#0C2A17',
+          side: '#03100A',
+          mask: 'rgb(0 0 0 / 62%)',
+          b1: '#14512F',
+          b2: '#1E7040',
+          ink: '#B9FFD0',
+          ink2: '#6FCF95',
+          ink3: '#4C9E6E',
+          brand: '#4DFF9A',
+          ok: '#4DFF9A',
+          warn: '#C8FF6A',
+          err: '#FF7A7A',
+          idle: '#4C9E6E',
+          thumb: '#B9FFD0',
+        },
+      },
+      amber: {
+        title: 'Amber VT',
+        desc: 'Warm amber monochrome, faint scanlines.',
+        swatch: 'linear-gradient(135deg, #0e0800, #ffb000)',
+        dark: true,
+        overlay:
+          'repeating-linear-gradient(180deg, rgba(0,0,0,.26) 0 1px, transparent 1px 3px)',
+        spec: {
+          bg: '#0E0800',
+          l1: '#170E00',
+          l2: '#1E1200',
+          ov: '#241600',
+          side: '#0A0500',
+          mask: 'rgb(0 0 0 / 62%)',
+          b1: '#4A2E00',
+          b2: '#6B4300',
+          ink: '#FFD79A',
+          ink2: '#D9A45C',
+          ink3: '#A87A3C',
+          brand: '#FFB000',
+          ok: '#A8C24A',
+          warn: '#FFB000',
+          err: '#FF7A5C',
+          idle: '#A87A3C',
+          thumb: '#FFD79A',
+        },
+      },
+      blueprint: {
+        title: 'Blueprint',
+        desc: 'Drafting-table navy with a cyan grid.',
+        swatch: 'linear-gradient(135deg, #061426, #7fd3ff)',
+        dark: true,
+        overlay:
+          'repeating-linear-gradient(0deg, rgba(127,211,255,.09) 0 1px, transparent 1px 24px), repeating-linear-gradient(90deg, rgba(127,211,255,.09) 0 1px, transparent 1px 24px)',
+        spec: {
+          bg: '#061426',
+          l1: '#081C33',
+          l2: '#0A2340',
+          ov: '#0C2A4A',
+          side: '#05101F',
+          mask: 'rgb(2 8 18 / 64%)',
+          b1: '#1E4A73',
+          b2: '#2A6B9E',
+          ink: '#DCEBFA',
+          ink2: '#8FB4D4',
+          ink3: '#6C8FAD',
+          brand: '#7FD3FF',
+          ok: '#7FE0B0',
+          warn: '#FFD37F',
+          err: '#FF8FA0',
+          idle: '#7095B5',
+          thumb: '#DCEBFA',
+        },
+      },
+      vapor: {
+        title: 'Vapor',
+        desc: 'Deep purple, hot pink accents, neon grid.',
+        swatch: 'linear-gradient(135deg, #10061e, #ff6ad5)',
+        dark: true,
+        overlay:
+          'repeating-linear-gradient(0deg, rgba(255,106,213,.10) 0 1px, transparent 1px 34px), repeating-linear-gradient(90deg, rgba(106,232,255,.08) 0 1px, transparent 1px 34px)',
+        spec: {
+          bg: '#10061E',
+          l1: '#170A2B',
+          l2: '#1E0D36',
+          ov: '#241040',
+          side: '#0C0418',
+          mask: 'rgb(8 2 16 / 62%)',
+          b1: '#4A2168',
+          b2: '#6B2F94',
+          ink: '#F2E6FF',
+          ink2: '#B79AD6',
+          ink3: '#8E74AB',
+          brand: '#FF6AD5',
+          ok: '#6AE8FF',
+          warn: '#FFD46A',
+          err: '#FF6A8F',
+          idle: '#8A6BA8',
+          thumb: '#F2E6FF',
+        },
+      },
+      paper: {
+        title: 'Paper',
+        desc: 'Daylight paper, ink text, warm chrome.',
+        swatch: 'linear-gradient(135deg, #f4efe3, #8a4b12)',
+        light: true,
+        overlay: 'radial-gradient(rgba(90,70,40,.06) 1px, transparent 1px)',
+        size: '3px 3px',
+        spec: {
+          bg: '#F4EFE3',
+          l1: '#FBF7EC',
+          l2: '#EFE8D8',
+          ov: '#FFFCF3',
+          side: '#EDE6D4',
+          mask: 'rgb(60 50 30 / 24%)',
+          b1: '#D6CDB6',
+          b2: '#B5A98C',
+          ink: '#23201A',
+          ink2: '#5C5546',
+          ink3: '#8A8271',
+          brand: '#8A4B12',
+          ok: '#2F6B3A',
+          warn: '#8A5A00',
+          err: '#A83224',
+          idle: '#8A8271',
+          thumb: '#FFFCF3',
+        },
+      },
+      gameboy: {
+        title: 'Game Boy',
+        desc: 'Four DMG greens, LCD grid, no wallpaper.',
+        swatch: 'linear-gradient(135deg, #9bbc0f, #0f380f)',
+        light: true,
+        overlay:
+          'repeating-linear-gradient(0deg, rgba(15,56,15,.09) 0 1px, transparent 1px 4px), repeating-linear-gradient(90deg, rgba(15,56,15,.09) 0 1px, transparent 1px 4px)',
+        spec: {
+          bg: '#9BBC0F',
+          l1: '#A8C63A',
+          l2: '#B6D055',
+          ov: '#BFD96B',
+          side: '#8FAE06',
+          mask: 'rgb(15 56 15 / 24%)',
+          b1: '#4E7A22',
+          b2: '#306230',
+          ink: '#0F380F',
+          ink2: '#2E5A22',
+          ink3: '#3F6B2E',
+          brand: '#1B4D12',
+          ok: '#0F380F',
+          warn: '#6B6A00',
+          err: '#7A1F12',
+          idle: '#3F6B2E',
+          thumb: '#D7E9A0',
+        },
+      },
+    };
+
+    const LOOK_IDS = Object.keys(LOOKS);
+
+    const tokensFor = (look, scene) => {
+      const L = LOOKS[look] || LOOKS.terminal;
+      if (!L.spec) return buildTokens(accentFor(scene));
+      const s = L.spec;
+      const p = (value) => ({ light: value, dark: value });
+      const mix = (a, b, pct) => `color-mix(in srgb, ${a} ${pct}%, ${b})`;
+      return {
+        '--dsw-alias-bg-base': p(s.bg),
+        '--dsw-alias-bg-layer-1': p(s.l1),
+        '--dsw-alias-bg-layer-2': p(s.l2),
+        '--dsw-alias-bg-layer-3': p(mix(s.l1, s.bg, 72)),
+        '--dsw-alias-bg-layer-4': p(mix(s.l2, s.bg, 62)),
+        '--dsw-alias-bg-overlay': p(s.ov),
+        '--dsw-alias-bg-mask-1': p(s.mask),
+        '--dsw-alias-bg-module-platform': p(mix(s.l1, s.bg, 88)),
+        '--dsw-specific-sidebar-fill': p(s.side),
+        '--dsw-specific-menu': p(s.ov),
+        '--dsw-alias-interactive-bg-hover': p(mix(s.brand, 'transparent', 12)),
+        '--dsw-alias-switch-thumb': p(s.thumb),
+        '--dsw-alias-label-primary': p(s.ink),
+        '--dsw-alias-label-secondary': p(s.ink2),
+        '--dsw-alias-label-tertiary': p(s.ink3),
+        '--dsw-alias-brand-primary': p(s.brand),
+        '--dsw-alias-border-l1': p(s.b1),
+        '--dsw-alias-border-l2': p(s.b2),
+        '--dsw-alias-border-l3': p(mix(s.b2, s.ink3, 45)),
+        '--dsw-alias-border-l4': p(mix(s.b1, s.bg, 62)),
+        '--dsw-specific-menu-icon': p(s.ink2),
+        '--dsw-alias-toast-bg': p(s.l2),
+        '--dsw-alias-toast-label': p(s.ink),
+        '--dsw-alias-bg-document-selection': p(mix(s.brand, 'transparent', 32)),
+        '--dsw-alias-state-success-primary': p(s.ok),
+        '--dsw-alias-state-warn-primary': p(s.warn),
+        '--dsw-alias-state-error-primary': p(s.err),
+        '--dsw-alias-state-idle-primary': p(s.idle),
+      };
+    };
+
+    const backgroundFor = (look, scene) => {
+      const L = LOOKS[look] || LOOKS.terminal;
+      return L.spec ? L.spec.bg : pageBackground(accentFor(scene));
+    };
+
+
     const CSS = `
 :root {
   color-scheme: dark;
@@ -1729,6 +1946,18 @@ window.__ModuleLoader__.load({
 
 html {
   background-color: #0B0A08;
+}
+
+/* CRT looks glow; the daylight looks stay matte. */
+html[data-tm-look="phosphor"] body {
+  text-shadow: 0 0 6px rgba(77, 255, 154, 0.3);
+}
+html[data-tm-look="amber"] body {
+  text-shadow: 0 0 6px rgba(255, 176, 0, 0.26);
+}
+html[data-tm-look="paper"] body,
+html[data-tm-look="gameboy"] body {
+  text-shadow: none;
 }
 
 body {
@@ -1790,12 +2019,8 @@ h1, h2, h3, h4, h5, h6,
 }
 `;
 
-    const isDark = () =>
-      document.body?.hasAttribute('data-ds-dark-theme')
-      ?? false;
-
     const STORE_KEY = 'tm.pixel';
-    const VALID = new Set([
+    const SCENE_IDS = new Set([
       'auto',
       'koi-pond',
       'honu-lagoon',
@@ -1812,16 +2037,18 @@ h1, h2, h3, h4, h5, h6,
     ]);
 
     const readStore = () => {
+      const base = { on: true, look: 'terminal', scene: 'auto' };
       try {
         const raw = localStorage.getItem(STORE_KEY);
-        if (!raw) return { on: true, scene: 'auto' };
+        if (!raw) return base;
         const value = JSON.parse(raw);
         return {
           on: value?.on !== false,
-          scene: VALID.has(value?.scene) ? value.scene : 'auto',
+          look: LOOK_IDS.includes(value?.look) ? value.look : 'terminal',
+          scene: SCENE_IDS.has(value?.scene) ? value.scene : 'auto',
         };
       } catch {
-        return { on: true, scene: 'auto' };
+        return base;
       }
     };
 
@@ -1834,7 +2061,7 @@ h1, h2, h3, h4, h5, h6,
     };
 
     const sceneFor = (scene, dark) =>
-      scene === 'auto' || !VALID.has(scene)
+      scene === 'auto' || !SCENE_IDS.has(scene)
         ? (dark ? 'koi-pond' : 'honu-lagoon')
         : scene;
 
@@ -1847,12 +2074,20 @@ h1, h2, h3, h4, h5, h6,
         let store = readStore();
         let styleEl;
         let paletteOff;
-
         let paletteKey;
+        let overlayEl;
+
+        const removeOverlay = () => {
+          if (overlayEl) {
+            overlayEl.remove();
+            overlayEl = undefined;
+          }
+        };
 
         const applySkin = () => {
           if (!store.on) {
             stopWall();
+            removeOverlay();
             if (paletteOff) {
               paletteOff();
               paletteOff = undefined;
@@ -1863,6 +2098,8 @@ h1, h2, h3, h4, h5, h6,
               styleEl = undefined;
             }
             document.documentElement.style.removeProperty('background-color');
+            document.documentElement.style.removeProperty('color-scheme');
+            delete document.documentElement.dataset.tmLook;
             return;
           }
 
@@ -1873,39 +2110,66 @@ h1, h2, h3, h4, h5, h6,
             document.head.appendChild(styleEl);
           }
 
-          // Repaint the whole skin whenever the chosen scene changes: its
-          // accent sets the hue of every surface, border and the brand color.
+          // A look is either painted by its own fixed palette, or — the
+          // terminal look — dyed by the accent of the chosen scene. The
+          // palette layer is rebuilt only when that key actually changes.
+          const look = LOOKS[store.look] ? store.look : 'terminal';
+          const L = LOOKS[look];
           const accent = accentFor(store.scene);
-          if (paletteKey !== accent) {
+          const key = L.spec ? look : look + '|' + accent;
+          if (paletteKey !== key) {
             if (paletteOff) paletteOff();
-            paletteOff = ctx.theme.overrideTokens(SOURCE, buildTokens(accent));
-            paletteKey = accent;
-            document.documentElement.style.setProperty(
-              'background-color',
-              pageBackground(accent),
-            );
+            paletteOff = ctx.theme.overrideTokens(SOURCE, tokensFor(look, store.scene));
+            paletteKey = key;
           }
 
-          // The skin is one fixed dark terminal; the app's own light/dark
-          // preference no longer changes the look, so the wallpaper always
-          // picks its dark-friendly variant.
+          document.documentElement.dataset.tmLook = look;
+          document.documentElement.style.colorScheme = L.light ? 'light' : 'dark';
+          document.documentElement.style.setProperty(
+            'background-color',
+            backgroundFor(look, store.scene),
+          );
+
+          // Scanlines and grids ride on top of the app and never take input.
+          if (L.overlay) {
+            if (!overlayEl) {
+              overlayEl = document.createElement('div');
+              overlayEl.id = 'tm-look-overlay';
+              overlayEl.setAttribute('aria-hidden', 'true');
+              overlayEl.style.cssText =
+                'position:fixed;inset:0;pointer-events:none;z-index:2147483000;';
+              document.body.appendChild(overlayEl);
+            }
+            overlayEl.style.backgroundImage = L.overlay;
+            overlayEl.style.backgroundSize = L.size || 'auto';
+          } else {
+            removeOverlay();
+          }
+
+          // Paper and Game Boy are daylight looks: the ASCII wallpaper is a
+          // dark terminal device, so it is hidden instead of washed out.
+          if (L.light) {
+            stopWall();
+            return;
+          }
+
           const dark = true;
           startWall(sceneFor(store.scene, dark), dark);
         };
 
         ctx.effect(() => {
           applySkin();
-          const mo = new MutationObserver(applySkin);
-          mo.observe(document.body, { attributes: true, attributeFilter: ['data-ds-dark-theme'] });
           return () => {
-            mo.disconnect();
             stopWall();
+            removeOverlay();
             if (paletteOff) paletteOff();
             paletteOff = undefined;
             paletteKey = undefined;
             if (styleEl) styleEl.remove();
             styleEl = undefined;
             document.documentElement.style.removeProperty('background-color');
+            document.documentElement.style.removeProperty('color-scheme');
+            delete document.documentElement.dataset.tmLook;
           };
         }, 'textmode-pixel: skin and wallpaper');
 
@@ -2017,19 +2281,99 @@ h1, h2, h3, h4, h5, h6,
         const PixelPage = () => {
           const [state, setState] = React.useState(store);
 
-          const pick = (scene) => {
-            store = { on: true, scene };
+          const commit = (next) => {
+            store = next;
             writeStore(store);
             setState(store);
             applySkin();
           };
 
-          const toggle = () => {
-            store = { ...store, on: !store.on };
-            writeStore(store);
-            setState(store);
-            applySkin();
-          };
+          const pickLook = (look) => commit({ ...store, look, on: true });
+          const pickScene = (scene) => commit({ ...store, scene, on: true });
+          const toggle = () => commit({ ...store, on: !store.on });
+
+          const Card = ({ title, desc, swatch, selected, onClick }) =>
+            h(
+              'button',
+              {
+                type: 'button',
+                onClick,
+                'aria-pressed': selected,
+                style: {
+                  textAlign: 'left',
+                  padding: 0,
+                  cursor: 'pointer',
+                  overflow: 'hidden',
+                  border:
+                    '1px solid ' +
+                    (selected
+                      ? 'var(--dsw-alias-brand-primary)'
+                      : 'var(--dsw-alias-border-l1)'),
+                  background: 'var(--dsw-alias-bg-layer-1)',
+                  color: 'var(--dsw-alias-label-primary)',
+                  boxShadow: selected
+                    ? 'inset 0 0 0 1px var(--dsw-alias-brand-primary)'
+                    : 'none',
+                },
+              },
+              h('div', {
+                style: {
+                  height: 58,
+                  backgroundImage: swatch,
+                  imageRendering: 'pixelated',
+                  borderBottom: '1px solid var(--dsw-alias-border-l1)',
+                },
+              }),
+              h(
+                'div',
+                { style: { padding: '10px 12px 12px' } },
+                h(
+                  'div',
+                  { style: { fontSize: 13, fontWeight: 700, letterSpacing: '.04em' } },
+                  title,
+                ),
+                h(
+                  'div',
+                  {
+                    style: {
+                      marginTop: 4,
+                      fontSize: 11,
+                      lineHeight: 1.45,
+                      color: 'var(--dsw-alias-label-secondary)',
+                    },
+                  },
+                  desc,
+                ),
+              ),
+            );
+
+          const heading = (text) =>
+            h(
+              'div',
+              {
+                style: {
+                  margin: '0 0 10px',
+                  fontSize: 11,
+                  letterSpacing: '.16em',
+                  textTransform: 'uppercase',
+                  color: 'var(--dsw-alias-label-tertiary)',
+                },
+              },
+              text,
+            );
+
+          const grid = (children) =>
+            h(
+              'div',
+              {
+                style: {
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))',
+                  gap: 10,
+                },
+              },
+              children,
+            );
 
           return h(
             'div',
@@ -2045,63 +2389,71 @@ h1, h2, h3, h4, h5, h6,
             },
             h(
               'div',
-              { style: { fontSize: 11, letterSpacing: '.18em', textTransform: 'uppercase', color: 'var(--dsw-alias-label-tertiary)' } },
+              {
+                style: {
+                  fontSize: 11,
+                  letterSpacing: '.18em',
+                  textTransform: 'uppercase',
+                  color: 'var(--dsw-alias-label-tertiary)',
+                },
+              },
               'Harness skin',
             ),
-            h('h1', { style: { margin: '10px 0 8px', fontSize: 26, letterSpacing: '.02em', fontWeight: 700 } }, 'Text mode pixel'),
+            h(
+              'h1',
+              { style: { margin: '10px 0 8px', fontSize: 26, letterSpacing: '.02em', fontWeight: 700 } },
+              'Text mode pixel',
+            ),
             h(
               'p',
               { style: { margin: '0 0 26px', color: 'var(--dsw-alias-label-secondary)', lineHeight: 1.6 } },
-              'The whole interface wears the theme: every surface, border and the brand color take their hue from the scene accent, so picking a wallpaper repaints the Harness to match it. Square tiles, monospace type and a live ASCII wallpaper sit underneath. There is no light or dark switch — it looks the same whatever the app preference says.',
+              'Two dials. The look paints every surface, border and the brand color, and can lay scanlines or a grid on top. The wallpaper animates ASCII art behind the app. Square tiles and monospace type sit under both, and the look is fixed — it ignores the app light or dark setting.',
             ),
-            h(
-              'div',
-              { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: 10 } },
-              SCENES_UI.map((scene) => {
-                const selected = state.scene === scene.id && state.on;
-                return h(
-                  'button',
-                  {
-                    key: scene.id,
-                    type: 'button',
-                    onClick: () => pick(scene.id),
-                    'aria-pressed': selected,
-                    style: {
-                      textAlign: 'left',
-                      padding: 0,
-                      cursor: 'pointer',
-                      overflow: 'hidden',
-                      border: '1px solid ' + (selected ? 'var(--dsw-alias-brand-primary)' : 'var(--dsw-alias-border-l1)'),
-                      background: 'var(--dsw-alias-bg-layer-1)',
-                      color: 'var(--dsw-alias-label-primary)',
-                      boxShadow: selected ? 'inset 0 0 0 1px var(--dsw-alias-brand-primary)' : 'none',
-                    },
-                  },
-                  h('div', {
-                    style: {
-                      height: 58,
-                      backgroundImage: scene.swatch,
-                      imageRendering: 'pixelated',
-                      borderBottom: '1px solid var(--dsw-alias-border-l1)',
-                    },
-                  }),
+            heading('Look'),
+            grid(
+              LOOK_IDS.map((id) =>
+                h(Card, {
+                  key: id,
+                  title: LOOKS[id].title,
+                  desc: LOOKS[id].desc,
+                  swatch: LOOKS[id].swatch,
+                  selected: state.look === id && state.on,
+                  onClick: () => pickLook(id),
+                }),
+              ),
+            ),
+            h('div', { style: { height: 26 } }),
+            ...((LOOKS[state.look] || LOOKS.terminal).light
+              ? [
+                  heading('Wallpaper'),
                   h(
-                    'div',
-                    { style: { padding: '10px 12px 12px' } },
-                    h(
-                      'div',
-                      { style: { fontSize: 13, fontWeight: 700, letterSpacing: '.04em' } },
-                      scene.title,
-                    ),
-                    h(
-                      'div',
-                      { style: { marginTop: 4, fontSize: 11, lineHeight: 1.45, color: 'var(--dsw-alias-label-secondary)' } },
-                      scene.desc,
+                    'p',
+                    {
+                      style: {
+                        margin: '0 0 10px',
+                        fontSize: 11,
+                        lineHeight: 1.5,
+                        color: 'var(--dsw-alias-label-tertiary)',
+                      },
+                    },
+                    'This daylight look hides the wallpaper. Pick a dark look to bring the ASCII scene back.',
+                  ),
+                ]
+              : [
+                  heading('Wallpaper'),
+                  grid(
+                    SCENES_UI.map((scene) =>
+                      h(Card, {
+                        key: scene.id,
+                        title: scene.title,
+                        desc: scene.desc,
+                        swatch: scene.swatch,
+                        selected: state.scene === scene.id && state.on,
+                        onClick: () => pickScene(scene.id),
+                      }),
                     ),
                   ),
-                );
-              }),
-            ),
+                ]),
             h(
               'div',
               {
@@ -2123,7 +2475,9 @@ h1, h2, h3, h4, h5, h6,
                     padding: '8px 14px',
                     cursor: 'pointer',
                     border: '1px solid var(--dsw-alias-border-l2)',
-                    background: state.on ? 'var(--dsw-alias-bg-layer-2)' : 'var(--dsw-alias-brand-primary)',
+                    background: state.on
+                      ? 'var(--dsw-alias-bg-layer-2)'
+                      : 'var(--dsw-alias-brand-primary)',
                     color: state.on ? 'var(--dsw-alias-label-primary)' : '#08110a',
                     fontSize: 12,
                     letterSpacing: '.06em',
@@ -2135,12 +2489,13 @@ h1, h2, h3, h4, h5, h6,
               h(
                 'span',
                 { style: { fontSize: 11, color: 'var(--dsw-alias-label-tertiary)' } },
-                state.on ? 'Skin is on' : 'Skin is off',
+                state.on
+                  ? 'On · ' + LOOKS[state.look].title + ' · ' + state.scene
+                  : 'Skin is off',
               ),
             ),
           );
         };
-
         ctx.effect(
           () =>
             ctx.slots.inject('sidebar.panellist', () =>

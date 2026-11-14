@@ -1,6 +1,6 @@
 {
   "meta": {
     "title": "Text Mode Pixel Theme",
-    "description": "Paints the whole Harness with the theme: every surface, border and the brand color take the hue of the chosen scene accent, so picking a wallpaper repaints the UI to match it. Monospace type, square tiles, pixel scrollbars and 12 live ASCII wallpapers. No light/dark switch."
+    "description": "Seven looks for the whole Harness — scene ink, phosphor CRT, amber VT, blueprint, vapor, paper and Game Boy — plus 13 live ASCII wallpapers. Monospace type, square tiles, pixel scrollbars, scanlines and grids. A sidebar page switches look and wallpaper."
   }
 }
