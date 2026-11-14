@@ -1596,7 +1596,7 @@ window.__ModuleLoader__.load({
         raf: 0,
         speed: 1.15,
         veil: 0,
-        bg: dark ? '#080b06' : '#f1ebd9',
+        bg: '#0B0A08',
         grid: false,
       });
       w.size = () => {
@@ -1631,23 +1631,73 @@ window.__ModuleLoader__.load({
     // through them: a neutral tint of the stock light/dark neutrals, no accent,
     // label, border-hue or state colour is replaced. Everything else keeps the
     // shipped theme exactly as it is.
+    // One fixed terminal palette, in both slots: the whole Harness is the theme,
+    // whatever light/dark preference the app itself happens to hold.
+    const P = {
+      base: 'rgb(10 9 7 / 62%)',
+      layer1: 'rgb(20 18 14 / 78%)',
+      layer2: 'rgb(30 27 20 / 88%)',
+      layer3: 'rgb(25 22 16 / 88%)',
+      layer4: 'rgb(38 34 25 / 92%)',
+      overlay: 'rgb(40 36 27 / 97%)',
+      mask: 'rgb(0 0 0 / 58%)',
+      module: 'rgb(27 24 18 / 82%)',
+      sidebar: 'rgb(14 12 9 / 68%)',
+      menu: 'rgb(40 36 27 / 98%)',
+      hover: 'rgb(255 214 140 / 9%)',
+      thumb: '#FFE7B8',
+      label1: '#F3E9D2',
+      label2: '#B9AB8D',
+      brand: '#FFC24A',
+      l1: '#3A3325',
+      l2: '#5C5138',
+      l3: '#7A6B47',
+      l4: '#2E281D',
+      icon: '#E3D6B4',
+      toastBg: '#26221A',
+      toastLabel: '#F7EFDA',
+      selection: 'rgb(255 194 74 / 32%)',
+      ok: '#8BE08A',
+      warn: '#FFC24A',
+      err: '#FF8A72',
+      idle: '#9A917C',
+    };
+    const pair = (value) => ({ light: value, dark: value });
+
     const TOKENS = {
-      '--dsw-alias-bg-base': { light: 'rgb(255 255 255 / 66%)', dark: 'rgb(18 18 20 / 58%)' },
-      '--dsw-alias-bg-layer-1': { light: 'rgb(255 255 255 / 78%)', dark: 'rgb(28 28 31 / 72%)' },
-      '--dsw-alias-bg-layer-2': { light: 'rgb(250 250 251 / 86%)', dark: 'rgb(36 36 40 / 82%)' },
-      '--dsw-alias-bg-layer-3': { light: 'rgb(247 247 248 / 86%)', dark: 'rgb(32 32 36 / 82%)' },
-      '--dsw-alias-bg-layer-4': { light: 'rgb(243 243 245 / 90%)', dark: 'rgb(42 42 47 / 88%)' },
-      '--dsw-alias-bg-overlay': { light: 'rgb(255 255 255 / 96%)', dark: 'rgb(44 44 49 / 96%)' },
-      '--dsw-alias-bg-mask-1': { light: 'rgb(0 0 0 / 36%)', dark: 'rgb(0 0 0 / 58%)' },
-      '--dsw-alias-bg-module-platform': { light: 'rgb(246 246 248 / 84%)', dark: 'rgb(32 32 36 / 76%)' },
-      '--dsw-specific-sidebar-fill': { light: 'rgb(250 250 251 / 76%)', dark: 'rgb(16 16 18 / 62%)' },
-      '--dsw-specific-menu': { light: 'rgb(255 255 255 / 97%)', dark: 'rgb(44 44 49 / 97%)' },
-      '--dsw-alias-interactive-bg-hover': { light: 'rgb(0 0 0 / 5%)', dark: 'rgb(255 255 255 / 6%)' },
-      '--dsw-alias-switch-thumb': { light: '#FFFFFF', dark: '#FFFFFF' },
+      '--dsw-alias-bg-base': pair(P.base),
+      '--dsw-alias-bg-layer-1': pair(P.layer1),
+      '--dsw-alias-bg-layer-2': pair(P.layer2),
+      '--dsw-alias-bg-layer-3': pair(P.layer3),
+      '--dsw-alias-bg-layer-4': pair(P.layer4),
+      '--dsw-alias-bg-overlay': pair(P.overlay),
+      '--dsw-alias-bg-mask-1': pair(P.mask),
+      '--dsw-alias-bg-module-platform': pair(P.module),
+      '--dsw-specific-sidebar-fill': pair(P.sidebar),
+      '--dsw-specific-menu': pair(P.menu),
+      '--dsw-alias-interactive-bg-hover': pair(P.hover),
+      '--dsw-alias-switch-thumb': pair(P.thumb),
+      '--dsw-alias-label-primary': pair(P.label1),
+      '--dsw-alias-label-secondary': pair(P.label2),
+      '--dsw-alias-label-tertiary': pair('#8C8067'),
+      '--dsw-alias-brand-primary': pair(P.brand),
+      '--dsw-alias-border-l1': pair(P.l1),
+      '--dsw-alias-border-l2': pair(P.l2),
+      '--dsw-alias-border-l3': pair(P.l3),
+      '--dsw-alias-border-l4': pair(P.l4),
+      '--dsw-specific-menu-icon': pair(P.icon),
+      '--dsw-alias-toast-bg': pair(P.toastBg),
+      '--dsw-alias-toast-label': pair(P.toastLabel),
+      '--dsw-alias-bg-document-selection': pair(P.selection),
+      '--dsw-alias-state-success-primary': pair(P.ok),
+      '--dsw-alias-state-warn-primary': pair(P.warn),
+      '--dsw-alias-state-error-primary': pair(P.err),
+      '--dsw-alias-state-idle-primary': pair(P.idle),
     };
 
     const CSS = `
 :root {
+  color-scheme: dark;
   --dsh-font-family-text-default: "Cascadia Mono", "Cascadia Code", Consolas, "Courier New", ui-monospace, monospace;
   --dsh-font-family-code-default: "Cascadia Mono", "Cascadia Code", Consolas, "Courier New", ui-monospace, monospace;
   --dsh-font-family-terminal-default: "Cascadia Mono", Consolas, "Courier New", ui-monospace, monospace;
@@ -1664,11 +1714,7 @@ window.__ModuleLoader__.load({
 }
 
 html {
-  background-color: #FFFFFF;
-}
-
-html:has(body[data-ds-dark-theme]) {
-  background-color: #121214;
+  background-color: #0B0A08;
 }
 
 body {
@@ -1811,7 +1857,10 @@ h1, h2, h3, h4, h5, h6,
 
           if (!paletteOff) paletteOff = ctx.theme.overrideTokens(SOURCE, TOKENS);
 
-          const dark = isDark();
+          // The skin is one fixed dark terminal; the app's own light/dark
+          // preference no longer changes the look, so the wallpaper always
+          // picks its dark-friendly variant.
+          const dark = true;
           startWall(sceneFor(store.scene, dark), dark);
         };
 
@@ -1970,7 +2019,7 @@ h1, h2, h3, h4, h5, h6,
             h(
               'p',
               { style: { margin: '0 0 26px', color: 'var(--dsw-alias-label-secondary)', lineHeight: 1.6 } },
-              'A live ASCII wallpaper runs behind the UI. The app keeps its own colors and its own light or dark setting — this theme only adds the monospace type, square tiles and the animated backdrop. Pick a scene, or turn the skin off without disabling the plugin.',
+              'The whole interface wears the theme: warm terminal ink, amber accents and square tiles, with a live ASCII wallpaper behind it. There is no light or dark switch — it looks the same whatever the app preference says. Pick a scene, or turn the skin off without disabling the plugin.',
             ),
             h(
               'div',

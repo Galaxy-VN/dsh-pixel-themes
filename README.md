@@ -1,19 +1,19 @@
 # Text Mode Pixel Theme
 
-A persistent theme plugin for the DeepSeek Harness Web UI: monospace type,
-square tiles, pixel scrollbars, and a **live ASCII wallpaper** drawn on a
-canvas behind the interface. It keeps the Harness **default colors** — no
-custom palette, no separate light or dark theme — and simply follows whichever
-setting you already use.
+A persistent theme plugin for the DeepSeek Harness Web UI: **one fixed warm
+terminal palette** covering the whole interface — ink surfaces, amber accents,
+monospace type, square tiles, pixel scrollbars — with a **live ASCII wallpaper**
+drawn on a canvas behind it. There is no light or dark variant: the theme keeps
+the same look whatever the app's own appearance preference says.
 
 ## Features
 
 - **12 live ASCII wallpapers:** Auto, Koi pond, Honu lagoon, Moonlit, Cloud
   drift, Fireflies, Jellyfish, Lantern night, Neon rain, Sakura dusk, Snow
   cabin, Star voyage, and Clawd.
-- **Default colors only.** Only the surface layers turn faintly translucent so
-  the wallpaper shows through; text, brand, borders and state colors stay the
-  shipped Harness values in both light and dark mode.
+- **One palette everywhere.** Backgrounds, layers, sidebar, menus, borders,
+  labels, brand and state colors are all set to the theme, in both the light
+  and dark token slots, so the UI never falls back to the stock gray.
 - A **Pixel theme** page in the left sidebar switches scenes or turns the skin
   off without disabling the plugin. The choice is stored in `localStorage`.
 - Respects `prefers-reduced-motion` (draws a still frame).
@@ -26,7 +26,8 @@ setting you already use.
 This directory is a Harness plugin bundle. Install it with the plugin manager
 (for example `plugin_manager install_bundle` with this absolute directory), then
 restart or hard-refresh the Web UI. The **Pixel theme** icon appears in the left
-sidebar rail. Light/dark stays where it has always been: Settings → Appearance.
+sidebar rail. The theme replaces the app colors on its own; Settings →
+Appearance no longer changes how it looks.
 
 ## Layout
 
