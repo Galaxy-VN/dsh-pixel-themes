@@ -1,6 +1,6 @@
 {
   "name": "@local/textmode-pixel-theme",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "private": true,
   "type": "module",
   "description": "Text-mode pixel-art theme for the whole Harness: each scene accent tints every surface, border and the brand color, with monospace type, square tiles, pixel scrollbars and 12 live ASCII wallpapers behind the UI.",
@@ -16,7 +16,10 @@
     "cordis.patch.yml",
     "locale/*.json",
     "icon.svg",
-    "NOTICE.md"
+    "README.md",
+    "LICENSE",
+    "NOTICE.md",
+    "docs/*.png"
   ],
   "dsh": {
     "bundle": {
@@ -29,5 +32,20 @@
         "@deepseek-ai/dsh-client-ui-theme"
       ]
     }
-  }
+  },
+  "license": "MIT",
+  "author": "GalaxyVN",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Galaxy-VN/dsh-pixel-themes.git"
+  },
+  "homepage": "https://github.com/Galaxy-VN/dsh-pixel-themes#readme",
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "theme",
+    "pixel-art",
+    "ascii",
+    "cordis"
+  ]
 }
